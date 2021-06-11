@@ -1,11 +1,11 @@
-const puppeteer = require('puppeteer-extra')
+const puppeteer = require('puppeteer')
 
-const StealthPlugin = require('puppeteer-extra-plugin-stealth')
-puppeteer.use(StealthPlugin())
+// const StealthPlugin = require('puppeteer-extra-plugin-stealth')
+// puppeteer.use(StealthPlugin())
 
 // const puppeteer = require('puppeteer')
 
-const expect = require('chai').expect
+// const expect = require('chai').expect
 // /waitForTimeout(1000)
 // describe('My First Puppeteer Test', ()=>{
 //     it('Should Launc The Browser', async()=>{
@@ -154,23 +154,49 @@ const expect = require('chai').expect
 //     })
 // })
 
-describe('My First Puppeteer Test', () => {
-  it('Should Launch The Browser', async () => {
-    const browser = await puppeteer.launch({
-      headless: false,
-      slowMo: 10,
-      devtools: false,
-    })
-    const page = await browser.newPage()
-    // await page.setDefaultTimeout(1000)
-    // await page.setDefaultNavigationTimeout(2000)
+// describe('My First Puppeteer Test', () => {
+//   let browser
+//   let page
 
-    await page.goto(
-      'https://app.hubspot.com/login/?__cf_chl_jschl_tk__=81dd6a70378a5c94bcd38ea5aecb8d1ab55aba4c-1622734260-0-AYQcwH7tUn3M57ubIAlbR5F31HUDWNMVGMJiPo3it26h-1vcN4nIdg6fCd3Yo9wGsh8qWKYPl5QU2JLgeKNs5LSvMbRrNaJKt7iGlYBDZQaezsgB6wb6-4FgvNK5KRSz4fpIQpidEvrW5OrISyWb9ysCHxkwUbvzDpD9HFya5Sk7gE5o_ENRzgbj9RXE8wA_w9cmmaC77aRyfuVEjThnIK7JPBFcpkiWoT8Wsvh8RFjnqvwQn0WhfRK6Pd-PgnW_5W6TIebkrg1EjY2C3CtWZWkMCSMWKeQ_GG6QghggOFRoy6OcJyIUT6Xr6x-LVVaohXtpuvdgRVWiKGIgjjRVbTcwfdAWo8vV5cuWO4pRFFA6aJusp3t_ceTHjXFO_tZzgNrtwFN25X9-_LYJ7zn1Zv-iENHySGTyo6IZsk72IiC6ZqrP-dHZ4vPoS09-RABrjNtorjwUUPx6pSkh2xA_-o4'
-    )
-    // await page.waitForTimeout(3000)
-    await browser.close()
+//   beforeEach(async function () {
+//     browser = await puppeteer.launch({
+//       headless: false,
+//       slowMo: 10,
+//       devtools: false,
+//     })
+//     page = await browser.newPage()
+//     // await page.setDefaultTimeOut(10000)
+//     // await page.setDefaultNavigationTimeout(20000)
+//   })
+
+//   afterEach(async function () {
+//     await browser.close()
+//   })
+
+//   it('Should Launch The Browser', async () => {
+//     await page.goto('example.com')
+//     // await page.waitForTimeout(3000)
+//   })
+// })
+
+describe('Device', () => {
+  let browser
+  let page
+
+  beforeAll(async function () {
+    browser = await puppeteer.launch({ headless: false })
+    page = await browser.newPage()
+  })
+
+  // afterAll(async function () {
+  //   await browser.close()
+  // })
+
+  it('desktop', async function () {
+    await page.setViewport({ width: 1650, height: 1050 })
+    await page.goto('https://www.google.com/')
+    await page.type('.gLFyf', 'Al Ahram')
+    await page.click('#gbqfbb')
+    await page.waitForTimeout(3000)
   })
 })
-
-console.log(browser)
