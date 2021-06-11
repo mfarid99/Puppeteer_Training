@@ -197,6 +197,6 @@ describe('Device', () => {
     await page.goto('https://www.google.com/')
     await page.type('.gLFyf', 'Al Ahram')
     await page.click('#gbqfbb')
-    await page.waitForTimeout(3000)
+    await page.waitForTimeout(4000)
   })
 })
