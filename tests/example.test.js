@@ -5,7 +5,15 @@ const puppeteer = require('puppeteer')
 
 // const puppeteer = require('puppeteer')
 
-// const expect = require('chai').expect
+const expect = require('chai').expect
+
+const selectors = {
+  alAhram: 'div.yuRUbf > a',
+  alAhram2:
+    '#rso > div:nth-child(1) > div > div > table > tbody > tr.mslg.dmenKe > td:nth-child(1) > div > h3 > a',
+  sports: '#topnav > li:nth-child(7) > a',
+  world: '#currentPortal > span > a:nth-child(3)',
+}
 // /waitForTimeout(1000)
 // describe('My First Puppeteer Test', ()=>{
 //     it('Should Launc The Browser', async()=>{
@@ -179,24 +187,37 @@ const puppeteer = require('puppeteer')
 //   })
 // })
 
-describe('Device', () => {
+describe('Al Ahram', () => {
   let browser
   let page
 
   beforeAll(async function () {
     browser = await puppeteer.launch({ headless: false })
     page = await browser.newPage()
+    await page.setDefaultTimeout(10000)
+    await page.setDefaultNavigationTimeout(20000)
   })
 
-  // afterAll(async function () {
-  //   await browser.close()
-  // })
+  afterAll(async function () {
+    await browser.close()
+  })
 
   it('desktop', async function () {
-    await page.setViewport({ width: 1650, height: 1050 })
+    jest.setTimeout(30000)
+
     await page.goto('https://www.google.com/')
     await page.type('.gLFyf', 'Al Ahram')
-    await page.click('#gbqfbb')
-    await page.waitForTimeout(4000)
+    await page.keyboard.press('Enter')
+    await page.waitForSelector(selectors.alAhram)
+    await page.click(selectors.alAhram)
+    await page.waitForSelector(selectors.sports)
+
+    await page.click(selectors.sports)
+    await page.waitForSelector(selectors.world)
+
+    await page.click(selectors.world)
+
+    // await page.click('#hyplnkMainTitle')
+    await page.waitForTimeout(1000)
   })
 })
